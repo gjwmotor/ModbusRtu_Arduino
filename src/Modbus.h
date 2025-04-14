@@ -19,7 +19,7 @@ public:
 	void begin(HardwareSerial *_pSerial);
 	void begin(HardwareSerial *_pSerial, long u32speed);
 	void begin(HardwareSerial *_pSerial, long u32speed, uint32_t config, int8_t rxPin, int8_t txPin);
-	void setTimeOut(uint16_t u16timeOut) {IOTimeOut = u16timeOut;}
+	void setTimeOut(uint16_t u16timeOut);
 	void setTxEnd_T32(long u32speed) {txEnd_T35 = ((1000000*35)/u32speed);}
 protected:
 	virtual int writeModbus(uint8_t *nDat, uint8_t nLen);//输出nLen字节
@@ -27,7 +27,6 @@ protected:
 	virtual void flushModbusRx();//刷新接收缓冲区
 	virtual void flushModbusTx();//刷新发送缓冲区
 public:
-	uint32_t IOTimeOut;//输入输出超时
 	HardwareSerial *pSerial;//串口指针
     uint32_t txEnd_T35;
 	uint8_t txBuf[256];

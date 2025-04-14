@@ -10,7 +10,6 @@
 
 Modbus::Modbus()
 {
-	IOTimeOut = 50;
 	pSerial = NULL;
 	txLen = 0;
 }
@@ -34,30 +33,14 @@ void Modbus::begin(HardwareSerial *_pSerial, long u32speed, uint32_t config, int
 	txEnd_T35 = ((1000000*35)/u32speed);
 }
 
+void Modbus::setTimeOut(uint16_t u16timeOut)
+{
+	pSerial->setTimeout(u16timeOut);
+}
+
 int Modbus::readModbus(uint8_t *nDat, uint8_t nLen)
 {
-	int Size = 0;
-	int ComData;
-	unsigned long t_begin = millis();
-	unsigned long t_user;
-	while(1){
-		ComData = pSerial->read();
-		if(ComData!=-1){
-			if(nDat){
-				nDat[Size] = ComData;
-			}
-			Size++;
-			t_begin = millis();
-		}
-		if(Size>=nLen){
-			break;
-		}
-		t_user = millis() - t_begin;
-		if(t_user>IOTimeOut){
-			break;
-		}
-	}
-	return Size;
+	return pSerial->readBytes(nDat, nLen);
 }
 
 int Modbus::writeModbus(uint8_t *nDat, uint8_t nLen)
