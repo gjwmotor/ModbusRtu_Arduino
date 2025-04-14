@@ -213,7 +213,11 @@ uint8_t Rtu::getRxu8Len()
 	case MB_FC_TORQUE_CTL:
 	case MB_FC_SETP_CTL:
 	case MB_FC_STATUS_FB:
-		rxu8Len = 16;
+		if(telegram.u8id == 0){
+			rxu8Len = 0;
+		}else{
+			rxu8Len = 16;
+		}
 		break;
     default:
 		rxu8Len = 0;
@@ -317,7 +321,6 @@ uint16_t Rtu::calcCRC(uint8_t u8length)
     // crcLo byte is first & crcHi byte is last
     return temp;
 }
-
 
 /**
  * This method validates master incoming messages
