@@ -1,7 +1,7 @@
 ﻿/*
  * Modbus.h
  * ModbusRtu硬件接口层程序
- * 日期: 2025.04.14
+ * 日期: 2025.04.18
  * 作者: txl
  */
 
@@ -18,7 +18,6 @@ public:
 	Modbus();
 	void begin(HardwareSerial *_pSerial);
 	void begin(HardwareSerial *_pSerial, long u32speed);
-	void begin(HardwareSerial *_pSerial, long u32speed, uint32_t config, int8_t rxPin, int8_t txPin);
 	void setTimeOut(uint16_t u16timeOut);
 	void setTxEnd_T32(long u32speed) {txEnd_T35 = ((1000000*35)/u32speed);}
 protected:
